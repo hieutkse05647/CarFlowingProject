@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "684404969334",
+    "firebase_url": "https://android-car-rent.firebaseio.com",
+    "project_id": "android-car-rent",
+    "storage_bucket": "android-car-rent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684404969334:android:668e39ac34b6bc72",
+        "android_client_info": {
+          "package_name": "com.ebookfrenzy.carflowingproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684404969334-otvsecq7bp7qdvgoalocaei1ii16bvcc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMGeaZkf5rtILJ9h7Bx-RvRvhf_fnrOW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684404969334-otvsecq7bp7qdvgoalocaei1ii16bvcc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

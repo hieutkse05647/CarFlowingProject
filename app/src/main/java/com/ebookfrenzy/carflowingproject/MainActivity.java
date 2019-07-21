@@ -1,38 +1,78 @@
 package com.ebookfrenzy.carflowingproject;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.ebookfrenzy.carflowingproject.DAO.FireStoreDAO;
 import com.ebookfrenzy.carflowingproject.Model.Location;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TextView mTextMessage;
+    private ActionBar toolbar;
     FireStoreDAO fireStoreDAO;
     Location lastLocation;
     ArrayList<String> listCarPlate = new ArrayList<String>();
     public String carPlate = "";
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    toolbar.setTitle("Home");
+                    return true;
+                case R.id.navigation_activity:
+//                    Intent intent = new Intent(this, ActiveCar.class);
+//                    startActivity(intent);
+                    return true;
+                case R.id.navigation_cars:
+                    toolbar.setTitle("Cars");
+                    return true;
+                case R.id.navigation_alarm:
+                    toolbar.setTitle("Alarm");
+                    return true;
+                case R.id.navigation_user:
+                    toolbar.setTitle("User");
+                    return true;
+            }
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = getSupportActionBar();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        toolbar.setTitle("Following Car Project");
         initiateFireStoreDAO();
-        Button button = (Button) findViewById(R.id.myButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listCarPlate.size() > 0) {
-                    int index = (int) (Math.random() * listCarPlate.size());
-                    System.out.println(index);
-                    setCarPlate(listCarPlate.get(index));
-                }
-            }
-        });
+    }
+
+    public void ActiveCarActivity (View view){
+        Intent intent = new Intent(this, ActiveCar.class );
+        startActivity(intent);
+    }
+
+    public void TrackingGPSActivity (View view){
+        Intent intent = new Intent(this, GPSActivity.class );
+        startActivity(intent);
     }
 
     public void setCarPlate(String carPlate) {
@@ -44,27 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setLastLocation(Location location) {
         this.lastLocation = location;
-        setTextView2();
     }
 
     public void setListCarPlate(ArrayList<String> listCarPlate) {
         this.listCarPlate = listCarPlate;
-        setTextView();
-    }
-
-    public void setTextView() {
-        TextView textView = (TextView) findViewById(R.id.textView);
-        String text = "";
-        Iterator iter = this.listCarPlate.iterator();
-        while (iter.hasNext()) {
-            text += iter.next().toString() + "\n";
-        }
-        textView.setText(text);
-    }
-
-    public void setTextView2() {
-        TextView textView = (TextView) findViewById(R.id.textView2);
-        textView.setText(this.carPlate + "\n" + this.lastLocation.getGeocode());
     }
 
     public void initiateFireStoreDAO () {

@@ -1,14 +1,15 @@
 package com.ebookfrenzy.carflowingproject.DAO;
 
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.widget.Toast;
 
-import com.ebookfrenzy.carflowingproject.MainActivity;
-import com.ebookfrenzy.carflowingproject.Model.Location;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.ebookfrenzy.carflowingproject.Model.Car;
+import com.ebookfrenzy.carflowingproject.Model.MapLocation;
+import com.ebookfrenzy.carflowingproject.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,13 +25,23 @@ public class FireStoreDAO extends AsyncTask<Void, Integer, Void> {
 
     FirebaseFirestore db = null;
     Query query = null;
-    MainActivity contextParent;
     ListenerRegistration carPlateListener;
     ListenerRegistration locationListener;
+    public ArrayList<Car> listCars = new ArrayList<Car>();
+    public String carPlate = "";
+    GoogleMap googleMap = null;
 
-    public FireStoreDAO(MainActivity contextParent) {
+    private static FireStoreDAO fireStoreDAO;
+
+    public FireStoreDAO() {
         this.db = FirebaseFirestore.getInstance();
-        this.contextParent = contextParent;
+    }
+
+    public static FireStoreDAO getInstance() {
+        if (fireStoreDAO == null) {
+            fireStoreDAO = new FireStoreDAO();
+        }
+        return fireStoreDAO;
     }
 
     public void listenChangeListCarPlate() {
@@ -44,18 +55,21 @@ public class FireStoreDAO extends AsyncTask<Void, Integer, Void> {
 
                         if (snapshot != null && !snapshot.isEmpty()) {
                             final ArrayList<String> listCarPlate = new ArrayList<String>();
+                            final ArrayList<Car> listAvalaibleCars = new ArrayList<Car>();
                             for (QueryDocumentSnapshot document : snapshot) {
                                 if (!listCarPlate.contains(document.getData().get("carPlate").toString())) {
                                     listCarPlate.add(document.getData().get("carPlate").toString());
+                                    Car car = new Car(document.getData().get("carPlate").toString(), document.getData().get("name").toString());
+                                    listAvalaibleCars.add(car);
                                 }
                             }
-                            contextParent.setListCarPlate(listCarPlate);
+                            listCars = listAvalaibleCars;
                         }
                     }
                 });
     }
     public void listenChangeLocationListener() {
-        locationListener = query.whereEqualTo("carPlate", contextParent.carPlate).orderBy("time", Query.Direction.DESCENDING)
+        locationListener = query.whereEqualTo("carPlate", carPlate).orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot snapshot,
@@ -67,7 +81,7 @@ public class FireStoreDAO extends AsyncTask<Void, Integer, Void> {
                 if (snapshot != null && !snapshot.isEmpty()) {
                     final ArrayList<String> listCarPlate = new ArrayList<String>();
                     DocumentSnapshot document = snapshot.getDocuments().get(0);
-                    Location location = new Location(
+                    MapLocation mapLocation = new MapLocation(
                             document.getData().get("carPlate").toString(),
                             Float.parseFloat(document.getData().get("bearing").toString()),
                             Float.parseFloat(document.getData().get("latitude").toString()),
@@ -75,7 +89,17 @@ public class FireStoreDAO extends AsyncTask<Void, Integer, Void> {
                             document.getData().get("geocode").toString(),
                             document.getData().get("time").toString()
                     );
-                    contextParent.setLastLocation(location);
+                    if (googleMap != null) {
+                        googleMap.clear();
+                        LatLng localFPT = new LatLng(mapLocation.getLatitude(), mapLocation.getLongitude());
+                        MarkerOptions marker = new MarkerOptions().position(localFPT).title(carPlate);
+                        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ico_truck_marker));
+                        marker.rotation(mapLocation.getBearing());
+                        googleMap.addMarker(marker);
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(localFPT));
+                        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );
+                    }
+
                 }
             }
         });
@@ -95,13 +119,31 @@ public class FireStoreDAO extends AsyncTask<Void, Integer, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         listenChangeListCarPlate();
-        listenChangeLocationListener();
         return null;
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        Toast.makeText(contextParent, "Okie, Finished", Toast.LENGTH_SHORT).show();
+    }
+
+    public ArrayList<Car> getListCars() {
+        return listCars;
+    }
+
+    public String getCarPlate() {
+        return carPlate;
+    }
+
+    public void setCarPlate(String carPlate) {
+        if (locationListener != null) {
+            locationListener.remove();
+        }
+        this.carPlate = carPlate;
+        listenChangeLocationListener();
+    }
+
+    public void setGoogleMap(GoogleMap googleMap) {
+        this.googleMap = googleMap;
     }
 }

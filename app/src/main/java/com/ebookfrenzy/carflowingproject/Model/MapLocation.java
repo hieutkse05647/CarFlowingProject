@@ -1,6 +1,6 @@
 package com.ebookfrenzy.carflowingproject.Model;
 
-public class Location {
+public class MapLocation {
     private String carPlate;
     private float bearing;
     private float latitude;
@@ -8,11 +8,11 @@ public class Location {
     private String geocode;
     private String time;
 
-    public Location() {
+    public MapLocation() {
 
     }
 
-    public Location(String carPlate, float bearing, float latitude, float longitude, String geocode, String time) {
+    public MapLocation(String carPlate, float bearing, float latitude, float longitude, String geocode, String time) {
         this.carPlate = carPlate;
         this.bearing = bearing;
         this.latitude = latitude;

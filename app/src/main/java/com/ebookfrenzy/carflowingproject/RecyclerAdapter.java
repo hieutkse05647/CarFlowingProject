@@ -1,5 +1,6 @@
 package com.ebookfrenzy.carflowingproject;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,14 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private String[] titles = {"Huyndai Accent ","Posche Mancan","Vin Fast ","Huyndai Accent ","Posche Mancan", "Kia Morning","Huyndai Accent ","Posche Mancan"};
+import com.ebookfrenzy.carflowingproject.DAO.FireStoreDAO;
+import com.ebookfrenzy.carflowingproject.Model.Car;
 
-    private String[] details = {"Huyndai Accent 2018",
-            "Posche Mancan", "Vin Fast 2019",
-            "Car 4 details", "Car 5 details",
-            "Car 6 details", "Car 7 details",
-            "Car 8 details"};
+import java.util.ArrayList;
+
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private int[] images = { R.drawable.huyndai_accent_20182,
             R.drawable.posche911,
@@ -25,6 +24,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             R.drawable.kia_morning,
             R.drawable.huyndai_accent_20182,
             R.drawable.posche911 };
+
+    public RecyclerAdapter(){}
 
     @NonNull
     @Override
@@ -37,14 +38,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.itemTitle.setText(titles[i]);
-        viewHolder.itemDetail.setText(details[i]);
+        final Car car = FireStoreDAO.getInstance().getListCars().get(i);
+        viewHolder.itemTitle.setText(car.getName());
+        viewHolder.itemDetail.setText(car.getCarPlate());
         viewHolder.itemImage.setImageResource(images[i]);
+        viewHolder.itemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GPSActivity.class);
+                intent.putExtra("CAR_PLATE", car.getCarPlate());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return titles.length;
+        return FireStoreDAO.getInstance().getListCars().size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

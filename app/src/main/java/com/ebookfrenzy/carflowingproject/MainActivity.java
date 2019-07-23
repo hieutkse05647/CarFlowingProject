@@ -1,6 +1,5 @@
 package com.ebookfrenzy.carflowingproject;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,21 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import com.ebookfrenzy.carflowingproject.DAO.FireStoreDAO;
-import com.ebookfrenzy.carflowingproject.Model.Location;
 
-import java.util.ArrayList;
+import com.ebookfrenzy.carflowingproject.DAO.FireStoreDAO;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView mTextMessage;
     private ActionBar toolbar;
     FireStoreDAO fireStoreDAO;
-    Location lastLocation;
-    ArrayList<String> listCarPlate = new ArrayList<String>();
-    public String carPlate = "";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initiateFireStoreDAO();
         toolbar = getSupportActionBar();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar.setTitle("Following Car Project");
-        initiateFireStoreDAO();
     }
 
     public void ActiveCarActivity (View view){
@@ -75,23 +67,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void setCarPlate(String carPlate) {
-        this.carPlate = carPlate;
-        if (fireStoreDAO != null) {
-            fireStoreDAO.listenChangeLocationListener();
-        }
-    }
-
-    public void setLastLocation(Location location) {
-        this.lastLocation = location;
-    }
-
-    public void setListCarPlate(ArrayList<String> listCarPlate) {
-        this.listCarPlate = listCarPlate;
-    }
-
     public void initiateFireStoreDAO () {
-        fireStoreDAO = new FireStoreDAO(MainActivity.this);
-        fireStoreDAO.execute();
+        FireStoreDAO.getInstance().execute();
     }
 }

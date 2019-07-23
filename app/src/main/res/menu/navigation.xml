@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home"
+        android:title="@string/title_HomeBot" />
+
+    <item
+        android:id="@+id/navigation_activity"
+        android:icon="@drawable/activity"
+        android:title="@string/title_Activity" />
+
+    <item
+        android:id="@+id/navigation_cars"
+        android:icon="@drawable/car"
+        android:title="@string/title_Cars" />
+
+    <item
+        android:id="@+id/navigation_alarm"
+        android:icon="@drawable/alarm"
+        android:title="@string/title_Alarm" />
+    <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/user"
+        android:title="@string/title_User" />
+
+</menu>

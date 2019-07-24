@@ -1,6 +1,9 @@
 package com.ebookfrenzy.carflowingproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+
+    private Context activity;
+    public RecyclerAdapter(Context activity){
+        this.activity = activity;
+
+    }
     private String[] titles = {"Huyndai Accent ","Posche Mancan","Vin Fast ","Huyndai Accent ","Posche Mancan", "Kia Morning","Huyndai Accent ","Posche Mancan"};
 
     private String[] details = {"Huyndai Accent 2018",
@@ -40,6 +49,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.itemTitle.setText(titles[i]);
         viewHolder.itemDetail.setText(details[i]);
         viewHolder.itemImage.setImageResource(images[i]);
+        viewHolder.itemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GPSActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

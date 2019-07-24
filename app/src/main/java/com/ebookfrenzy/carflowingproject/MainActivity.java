@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
                     toolbar.setTitle("Home");
                     return true;
                 case R.id.navigation_activity:
-//                    Intent intent = new Intent(this, ActiveCar.class);
-//                    startActivity(intent);
                     return true;
                 case R.id.navigation_cars:
                     toolbar.setTitle("Cars");
@@ -63,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void TrackingGPSActivity (View view){
         Intent intent = new Intent(this, GPSActivity.class );
+        startActivity(intent);
+    }
+    public void AllTrackingGPSActivity (View view){
+        Intent intent = new Intent(this, AllGPSActivity.class );
+        startActivity(intent);
+    }
+
+    public void AddNewCarActivity (View view){
+        Intent intent = new Intent(this, AddNewCar.class );
         startActivity(intent);
     }
 }

@@ -49,10 +49,10 @@
                 android:id="@+id/txtol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginLeft="44dp"
-                android:layout_marginTop="128dp"
-                android:text="Online"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="140dp"
+                android:text="Total Cars"
                 android:textColor="@android:color/background_light"
                 android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,36 +64,21 @@
                 android:layout_height="37dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="128dp"
+                android:layout_marginTop="144dp"
                 android:layout_weight="1"
 
                 android:text="8"
                 android:textColor="@android:color/background_light"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.576"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textPercentOnline"
-                android:layout_width="83dp"
-                android:layout_height="41dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="128dp"
-                android:layout_weight="1"
-                android:background="#FFD05B"
-                android:text="  43%"
-                android:textColor="@android:color/background_light"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintHorizontal_bias="0.535"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
+
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -110,19 +95,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="172dp"
-                android:text="-------------------------------------------------"
-                android:textColor="@android:color/background_light"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
 
         </android.support.constraint.ConstraintLayout>
 
@@ -135,46 +107,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/txtoffl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginLeft="44dp"
-                android:layout_marginTop="192dp"
-                android:text="Offline"
-                android:textColor="@android:color/background_light"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textOfflineCar"
-                android:layout_width="wrap_content"
-                android:layout_height="37dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="196dp"
-                android:layout_weight="1"
-                android:text="18"
-                android:textColor="@android:color/background_light"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.587"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <Button
                 android:id="@+id/btnactivecar"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/btnactivecar"
+                android:layout_marginStart="48dp"
+                android:layout_marginLeft="48dp"
+                android:layout_marginTop="228dp"
+                android:background="@drawable/activecar"
+                android:onClick="ActiveCarActivity"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtoffl"
-                android:onClick="ActiveCarActivity"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btncarstock"
@@ -182,33 +125,49 @@
                 android:layout_height="120dp"
                 android:layout_marginStart="44dp"
                 android:layout_marginLeft="44dp"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/btncarstock"
-                android:onClick="TrackingGPSActivity"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/carstock"
+                android:onClick="ActiveCarActivity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.394"
                 app:layout_constraintStart_toEndOf="@+id/btnactivecar"
-                app:layout_constraintTop_toBottomOf="@+id/textOfflineCar" />
+                app:layout_constraintTop_toTopOf="@+id/btnactivecar" />
 
             <Button
                 android:id="@+id/btnhistory"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/btnhistory"
+                android:layout_marginStart="48dp"
+                android:layout_marginLeft="48dp"
+                android:layout_marginTop="76dp"
+                android:background="@drawable/viewall"
+                android:onClick="AllTrackingGPSActivity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnactivecar" />
 
             <Button
-                android:id="@+id/btnalert"
+                android:id="@+id/btnAddNew"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginLeft="44dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/btnalert"
+                android:layout_marginStart="72dp"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="76dp"
+                android:background="@drawable/addnew"
+                android:onClick="AddNewCarActivity"
                 app:layout_constraintStart_toEndOf="@+id/btnhistory"
                 app:layout_constraintTop_toBottomOf="@+id/btncarstock" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="395dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="392dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -226,12 +185,12 @@
                 android:layout_height="44dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="152dp"
+                android:layout_marginTop="124dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/iconspeed1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.93"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>

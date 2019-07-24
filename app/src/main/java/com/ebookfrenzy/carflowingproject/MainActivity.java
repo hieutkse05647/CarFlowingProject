@@ -1,5 +1,6 @@
 package com.ebookfrenzy.carflowingproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,14 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.ebookfrenzy.carflowingproject.DAO.FireStoreDAO;
-
 public class MainActivity extends AppCompatActivity {
+
     private TextView mTextMessage;
     private ActionBar toolbar;
-    FireStoreDAO fireStoreDAO;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
                     toolbar.setTitle("Home");
                     return true;
                 case R.id.navigation_activity:
-//                    Intent intent = new Intent(this, ActiveCar.class);
-//                    startActivity(intent);
                     return true;
                 case R.id.navigation_cars:
                     toolbar.setTitle("Cars");
@@ -50,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initiateFireStoreDAO();
         toolbar = getSupportActionBar();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -66,8 +63,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GPSActivity.class );
         startActivity(intent);
     }
+    public void AllTrackingGPSActivity (View view){
+        Intent intent = new Intent(this, AllGPSActivity.class );
+        startActivity(intent);
+    }
 
-    public void initiateFireStoreDAO () {
-        FireStoreDAO.getInstance().execute();
+    public void AddNewCarActivity (View view){
+        Intent intent = new Intent(this, AddNewCar.class );
+        startActivity(intent);
     }
 }

@@ -13,7 +13,40 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ebookfrenzy.carflowingproject.DAO.FireStoreDAO;
+
 public class MainActivity extends AppCompatActivity {
+    private TextView mTextMessage;
+    private ActionBar toolbar;
+    FireStoreDAO fireStoreDAO;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    toolbar.setTitle("Home");
+                    return true;
+                case R.id.navigation_activity:
+//                    Intent intent = new Intent(this, ActiveCar.class);
+//                    startActivity(intent);
+                    return true;
+                case R.id.navigation_cars:
+                    toolbar.setTitle("Cars");
+                    return true;
+                case R.id.navigation_alarm:
+                    toolbar.setTitle("Alarm");
+                    return true;
+                case R.id.navigation_user:
+                    toolbar.setTitle("User");
+                    return true;
+            }
+            return false;
+        }
+    };
 
     private TextView mTextMessage;
     private ActionBar toolbar;
@@ -48,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initiateFireStoreDAO();
         toolbar = getSupportActionBar();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -71,5 +105,8 @@ public class MainActivity extends AppCompatActivity {
     public void AddNewCarActivity (View view){
         Intent intent = new Intent(this, AddNewCar.class );
         startActivity(intent);
+
+    public void initiateFireStoreDAO () {
+        FireStoreDAO.getInstance().execute();
     }
 }

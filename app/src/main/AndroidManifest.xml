@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ebookfrenzy.carflowingproject">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
+         mapLocation permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <permission
         android:name="your.package.name.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-
-    <uses-permission android:name="your.package.name.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="your.package.name.permission.MAPS_RECEIVE"/>
 
     <application
         android:allowBackup="true"
@@ -22,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddNewCar"></activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,14 +35,13 @@
             android:value="AIzaSyBt16u95efkVDEAS9y80qRFZS7OjyRIdFk" />
 
         <activity
+            android:exported="true"
             android:name=".ActiveCar"
-            android:exported="true" />
+         />
         <activity
+            android:exported="true"
             android:name=".GPSActivity"
-            android:exported="true" />
-
-
-
+            />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
